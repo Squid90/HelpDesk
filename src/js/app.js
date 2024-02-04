@@ -1,60 +1,100 @@
 // TODO: write code here
-let currentScore = 0;
-let failScore = 0;
-let activeHole = Math.floor(1 + Math.random() * 16);
-let playing = true;
-let cycleNumber = 0;
-const hole = document.querySelectorAll('.hole');
-const holeSeparate = [...hole];
-const deactivateHole = () => document.querySelector('.hole_has-goblin').classList.remove('hole_has-goblin');
-const activateHole = (index) => document.querySelector(`.hole${index}`).classList.add('hole_has-goblin');
-//activateHole(activeHole);
 
 
-function changeHole() {
-  activateHole(activeHole);
-  deactivateHole();
-  activeHole = Math.floor(1 + Math.random() * 16);
-  activateHole(activeHole);
-}
-function reset() {
-  alert('Игра окончена!');
-  currentScore = 0;
-  failScore = -1;
-  playing = true;
-  document.querySelector('.success').textContent = 0;
-  document.querySelector('.fail').textContent = 0;
-  cycleNumber = -1;
-}
-(() => {
+const board = document.querySelector('.board');
+
+const column = board.querySelectorAll('.column');
+
+let actualElement;
+
+let shadowCard = document.createElement('div');
+shadowCard.classList.add('highlight');
+
+
+const onMouseOver = (e) => {
+  actualElement.style.top = e.clientY + 'px';
+  actualElement.style.left = e.clientX + 'px';
+  const rect = actualElement.getBoundingClientRect();
+
+  const mouseOverItem = e.target;
+  if(mouseOverItem.classList.contains('card')) {
+    shadowCard.style.height = rect.height + 'px';
+    mouseOverItem.parentNode.insertBefore(shadowCard, mouseOverItem);
+   } //else if(mouseOverItem.classList.contains('column')) {
+  //   mouseOverItem.insertBefore(shadowCard, mouseOverItem.lastElementChild);
+  // }
+
+};
+
+const onMouseUp = (e) => {
+  const mouseUpItem = e.target;
+  if(mouseUpItem.classList.contains('card') || mouseUpItem.classList.contains('highlight')) {
+    mouseUpItem.parentNode.insertBefore(actualElement, shadowCard);
+   } //else if(mouseUpItem.classList.contains('column')) {
+  //   mouseUpItem.insertBefore(actualElement, mouseUpItem.lastElementChild);
+  // }
+
   
-  if (playing) {
-    setInterval(() => {
-      if (cycleNumber !== currentScore + failScore) {
-        failScore += 1;
-        document.querySelector('.fail').textContent = failScore;
-      }
+  actualElement.classList.remove('dragged');
+  actualElement = undefined;
+  document.documentElement.removeEventListener('mouseup', onMouseUp);
+  document.documentElement.removeEventListener('mouseover', onMouseOver);
+  shadowCard.remove();
+};
 
-      if (!playing || failScore >= 5) {
-        reset();
-        return;
-      }
-      changeHole();
-      cycleNumber += 1;
-    }, 1000);
-  }
-})();
+board.addEventListener('mousedown', (e) => {
+  e.preventDefault();
+  actualElement = e.target;
 
-holeSeparate.forEach((item) => {
+  actualElement.classList.add('dragged');
+
+  document.documentElement.addEventListener('mouseup', onMouseUp);
+  document.documentElement.addEventListener('mouseover', onMouseOver);
+});
+
+const buttonAdd = document.querySelectorAll('.buttonAdd');
+buttonAdd.forEach(function(item){
+  
+  
   item.addEventListener('click', () => {
-    if (item.classList.contains('hole_has-goblin')) {
-      changeHole();
-      currentScore += 1;
-      document.querySelector('.success').textContent = currentScore;
-    } else {
-      changeHole();
-      failScore += 1;
-      document.querySelector('.fail').textContent = failScore;
-    }
+    const itemParent = item.parentNode
+    let addNew = itemParent.querySelector('.addNew');
+    addNew.classList.remove('hidden');
   });
 });
+
+const newCards = document.querySelectorAll('.add');
+newCards.forEach(function(item){
+  item.addEventListener('click', () => {
+    const itemParent = item.parentNode
+    let text = itemParent.querySelector('.text');
+    
+
+    itemParent.insertAdjacentHTML('beforebegin', `
+    <div class="card">
+    <div class="iconCard hidden"><div class="icon"></div></div>
+    ${text.value}
+    </div>
+    `);
+
+    itemParent.classList.add('hidden');
+  });
+});
+
+column.forEach(function(item){
+  const card = item.querySelectorAll('.card');
+  card.forEach(function(elm) {
+    elm.addEventListener('mouseenter', () => {
+      const iconCard = elm.querySelector('.iconCard');
+      iconCard.classList.remove('hidden');
+      const icon = iconCard.querySelector('.icon');
+      icon.addEventListener('click', (e) => {
+        elm.remove();
+      });
+    });
+    elm.addEventListener('mouseleave', () => {
+      const iconCard = elm.querySelector('.iconCard');
+      iconCard.classList.add('hidden');
+    });
+  });
+});  

@@ -4,34 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Goblin Game</title>
+    <title>Доска</title>
 </head>
-<body>
-    <div class="score">Счет успеха</div>
-    <div class="score success">0</div>
-    <div class="score">Счет провала</div>
-    <div class="score fail">0</div>
-  <main class="content">
-    <div class="card">
-        <div class="game">
-            <div class="hole hole1"></div>
-            <div class="hole hole2"></div>
-            <div class="hole hole3"></div>
-            <div class="hole hole4"></div>
-            <div class="hole hole5"></div>
-            <div class="hole hole6"></div>
-            <div class="hole hole7"></div>
-            <div class="hole hole8"></div>
-            <div class="hole hole9"></div>
-            <div class="hole hole10"></div>
-            <div class="hole hole11"></div>
-            <div class="hole hole12"></div>
-            <div class="hole hole13"></div>
-            <div class="hole hole14"></div>
-            <div class="hole hole15"></div>
-            <div class="hole hole16"></div>
-        </div>
-    </div>
-</main> 
-</body>
+    <body>
+        <div class="board">
+            <div class="column" id="column1">
+                <div class="card">
+                    <div class="iconCard hidden"><div class="icon icon1"></div></div>
+                    Карточка 1
+                </div>
+                <div class="card">
+                    <div class="iconCard hidden"><div class="icon icon2"></div></div>
+                    Карточка 2
+                </div>
+                <div class="card">
+                    <div class="iconCard hidden"><div class="icon icon6"></div></div>
+                    Карточка 6
+                </div>
+                <div class="card">
+                    <div class="iconCard hidden"><div class="icon icon7"></div></div>
+                    Карточка 7
+                </div>
+                <div class="card">
+                    <div class="iconCard hidden"><div class="icon icon8"></div></div>
+                    Карточка 8
+                </div>
+                <div class="addNew hidden">
+                    <textarea class="text" name="text">Тут можно ввести свою задачу</textarea>
+                    <button class="add add1">Добавить</button>
+                </div>
+                <button class="buttonAdd button1">Добавить новую задачу</button>
+            </div>
+            <div class="column" id="column2">
+                <div class="card">
+                    <div class="iconCard hidden"><div class="icon icon3"></div></div>
+                    Карточка 3
+                </div>
+                <div class="addNew hidden">
+                    <textarea class="text" name="text">Тут можно ввести свою задачу</textarea>
+                    <button class="add add1">Добавить</button>
+                </div>
+                <button class="buttonAdd button2">Добавить новую задачу</button>
+            </div>
+            <div class="column" id="column3">
+                <div class="card">
+                    <div class="iconCard hidden"><div class="icon icon4"></div></div>
+                    Карточка 4
+                </div>
+                <div class="card">
+                    <div class="iconCard hidden"><div class="icon icon5"></div></div>
+                    Карточка 5
+                </div>
+                <div class="addNew hidden">
+                    <textarea class="text" name="text">Тут можно ввести свою задачу</textarea>
+                    <button class="add add1">Добавить</button>
+                </div>
+                <button class="buttonAdd button3">Добавить новую задачу</button>
+            </div>
+        </div>    
+    </body>
 </html>
