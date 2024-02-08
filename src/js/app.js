@@ -72,8 +72,8 @@ board.addEventListener('mousemove', (e) => {
   if (e.target.classList.contains('card')) {
     const iconCard = e.target.querySelector('.iconCard');
     iconCard.classList.remove('hidden');
-    iconCard.addEventListener('mousedown', (e) => {
-      e.stopPropagation();
+    iconCard.addEventListener('mousedown', (elm) => {
+      elm.stopPropagation();
     });
   } else {
     const cards = e.target.querySelectorAll('.card');
