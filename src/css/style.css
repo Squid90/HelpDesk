@@ -1,6 +1,7 @@
 .board {
   display: flex;
   max-width: 950px;
+  background-color: blue;
 }
 
 .column {

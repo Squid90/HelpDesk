@@ -2,8 +2,6 @@
 
 const board = document.querySelector('.board');
 
-const column = board.querySelectorAll('.column');
-
 let actualElement;
 
 const shadowCard = document.createElement('div');
@@ -18,18 +16,14 @@ const onMouseOver = (e) => {
   if (mouseOverItem.classList.contains('card')) {
     shadowCard.style.height = `${rect.height}px`;
     mouseOverItem.parentNode.insertBefore(shadowCard, mouseOverItem);
-  } // else if(mouseOverItem.classList.contains('column')) {
-  //   mouseOverItem.insertBefore(shadowCard, mouseOverItem.lastElementChild);
-  // }
+  }
 };
 
 const onMouseUp = (e) => {
   const mouseUpItem = e.target;
   if (mouseUpItem.classList.contains('card') || mouseUpItem.classList.contains('highlight')) {
     mouseUpItem.parentNode.insertBefore(actualElement, shadowCard);
-  } // else if(mouseUpItem.classList.contains('column')) {
-  //   mouseUpItem.insertBefore(actualElement, mouseUpItem.lastElementChild);
-  // }
+  }
 
   actualElement.classList.remove('dragged');
   actualElement = undefined;
@@ -74,20 +68,35 @@ newCards.forEach((item) => {
   });
 });
 
-column.forEach((item) => {
-  const card = item.querySelectorAll('.card');
-  card.forEach((elm) => {
-    elm.addEventListener('mouseenter', () => {
-      const iconCard = elm.querySelector('.iconCard');
-      iconCard.classList.remove('hidden');
-      const icon = iconCard.querySelector('.icon');
-      icon.addEventListener('click', () => {
-        elm.remove();
-      });
+board.addEventListener('mousemove', (e) => {
+  if (e.target.classList.contains('card')) {
+    const iconCard = e.target.querySelector('.iconCard');
+    iconCard.classList.remove('hidden');
+    iconCard.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
     });
-    elm.addEventListener('mouseleave', () => {
-      const iconCard = elm.querySelector('.iconCard');
+  } else {
+    const cards = e.target.querySelectorAll('.card');
+    cards.forEach((card) => {
+      const iconCard = card.querySelector('.iconCard');
       iconCard.classList.add('hidden');
+    });
+  }
+});
+
+board.addEventListener('click', (e) => {
+  if (e.target.classList.contains('icon')) {
+    const card = e.target.closest('.card');
+    if (card) {
+      card.remove();
+    }
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('textarea').forEach((textarea) => {
+    textarea.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
     });
   });
 });
