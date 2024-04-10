@@ -1,4 +1,4 @@
-name: helpdesk
+name: HelpDesk
 
 on: [push, pull_request]
 
