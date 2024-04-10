@@ -4,6 +4,7 @@ const board = document.querySelector('.board');
 
 let actualElement;
 
+
 const shadowCard = document.createElement('div');
 shadowCard.classList.add('highlight');
 
