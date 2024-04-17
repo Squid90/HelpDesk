@@ -4,4 +4,8 @@ const root = document.getElementById('root');
 
 const app = new HelpDesk(root);
 
+const xhr = new XMLHttpRequest();
+
 app.init();
+
+
