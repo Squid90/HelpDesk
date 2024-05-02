@@ -9,7 +9,23 @@
 </head>
 
 <body>
-  <div id="root"></div>
+
+  <div class="addbutton" style="text-align: right; margin-bottom: 30px;">
+    <button class="add-button" style="display: inline-block; height: 30px; border: 1px solid black; text-align: center;">Добавить тикет</button>
+  </div>
+  <div class="root" id="root" style="margin-bottom: 30px;">
+
+  
+  </div>
+  <form class="addForm" style="display: none; flex-direction: column; align-items: left;">
+      <div class="Name" style="align-items: center; margin-bottom: 10px;">Добавление тикета</div>
+      <div class="shortTask" style="align-items: center; margin-bottom: 10px;">Краткое описание</div>
+      <input class="shortInput" style="margin-bottom: 10px;">
+      <div class="longTask" style="align-items: center; margin-bottom: 10px;">Подробное описание</div>
+      <input class="shortInput" style="margin-bottom: 10px;">
+      <button class="cancel-button" style="display: inline-block; height: 30px; border: 1px solid black; text-align: center; margin-bottom: 10px;">Отмена</button>
+      <button class="ok-button" style="display: inline-block; height: 30px; border: 1px solid black; text-align: center; margin-bottom: 10px;">Добавить</button>
+  </form>
 </body>
 
 </html>
