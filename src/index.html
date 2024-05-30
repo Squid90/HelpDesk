@@ -13,19 +13,28 @@
   <div class="addbutton" style="text-align: right; margin-bottom: 30px;">
     <button class="add-button" style="display: inline-block; height: 30px; border: 1px solid black; text-align: center;">Добавить тикет</button>
   </div>
-  <div class="root" id="root" style="margin-bottom: 30px;">
+  <div class="root" id="root" style="margin-bottom: 30px; ">
 
-  
+
   </div>
   <form class="addForm" style="display: none; flex-direction: column; align-items: left;">
-      <div class="Name" style="align-items: center; margin-bottom: 10px;">Добавление тикета</div>
+      <div class="title" style="align-items: center; margin-bottom: 10px;">Добавление тикета</div>
       <div class="shortTask" style="align-items: center; margin-bottom: 10px;">Краткое описание</div>
-      <input class="shortInput" style="margin-bottom: 10px;">
+      <input name="name" class="name" style="margin-bottom: 10px;">
       <div class="longTask" style="align-items: center; margin-bottom: 10px;">Подробное описание</div>
-      <input class="shortInput" style="margin-bottom: 10px;">
+      <input name="description" class="description" style="margin-bottom: 10px;">
       <button class="cancel-button" style="display: inline-block; height: 30px; border: 1px solid black; text-align: center; margin-bottom: 10px;">Отмена</button>
       <button class="ok-button" style="display: inline-block; height: 30px; border: 1px solid black; text-align: center; margin-bottom: 10px;">Добавить</button>
   </form>
+  <form class="editForm" style="display: none; flex-direction: column; align-items: left;">
+    <div class="title" style="align-items: center; margin-bottom: 10px;">Редактирование тикета</div>
+    <div class="edit-shortTask" style="align-items: center; margin-bottom: 10px;">Краткое описание</div>
+    <input name="name" class="edit-name" style="margin-bottom: 10px;">
+    <div class="longTask" style="align-items: center; margin-bottom: 10px;">Подробное описание</div>
+    <input name="description" class="edit-description" style="margin-bottom: 10px;">
+    <button class="cancel-edit-button" style="display: inline-block; height: 30px; border: 1px solid black; text-align: center; margin-bottom: 10px;">Отмена</button>
+    <button class="ok-edit-button" style="display: inline-block; height: 30px; border: 1px solid black; text-align: center; margin-bottom: 10px;">Изменить</button>
+</form>
 </body>
 
 </html>
