@@ -1,22 +1,23 @@
 const xhr = new XMLHttpRequest();
+
+export function formatDateAndTime(timestamp) {
+  const date = new Date(timestamp);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = String(date.getFullYear()).slice(-2);
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${day}.${month}.${year} ${hours}.${minutes}`;
+}
+export const urlServer = 'http://localhost:7070/';
 export default class TicketService {
   // eslint-disable-next-line
   list() {
-    xhr.open('GET', 'http://localhost:7070/?method=allTickets');
+    xhr.open('GET', `${urlServer}?method=allTickets`);
 
     xhr.send();
-
-    function formatDateAndTime(timestamp) {
-      const date = new Date(timestamp);
-
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = String(date.getFullYear()).slice(-2);
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-
-      return `${day}.${month}.${year} ${hours}.${minutes}`;
-    }
 
     xhr.addEventListener('load', () => {
       if (xhr.status >= 200 && xhr.status < 300) {
@@ -51,6 +52,7 @@ export default class TicketService {
                     </div>
                   </div>
                   `;
+            console.log('done card');
           });
         } catch (e) {
           console.error(e);
