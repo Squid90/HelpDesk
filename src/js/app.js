@@ -65,7 +65,10 @@ newTicket.addEventListener('click', () => {
                       </div>
                     </div>
                     `;
+            // eslint-disable-next-line
+            location.reload();
           } catch (e) {
+            // eslint-disable-next-line
             console.error(e);
           }
         }
@@ -88,8 +91,7 @@ cancelNewTicket.addEventListener('click', () => {
 });
 
 setTimeout(() => {
-  const rootCard = document.querySelector('.root');
-  const shortCard = rootCard.querySelectorAll('.box');
+  const shortCard = document.querySelectorAll('.box');
   shortCard.forEach((item) => {
     const container = item.querySelectorAll('.container');
     container.forEach((element) => {
@@ -116,7 +118,28 @@ setTimeout(() => {
       element.addEventListener('click', () => {
         xhr.open('GET', `${urlServer}?method=deleteById&id=${boxId}`);
         xhr.send();
+        // eslint-disable-next-line
+        location.reload();
       });
+    });
+  });
+}, 1000);
+
+setTimeout(() => {
+  const shortCard = document.querySelectorAll('.box');
+  shortCard.forEach((item) => {
+    const boxId = item.querySelector('.content').textContent;
+    const statusbox = item.querySelector('.container1');
+    const statusTask = statusbox.querySelector('.circle-checkbox');
+
+    statusTask.addEventListener('change', () => {
+      const xhr = new XMLHttpRequest();
+      const inputStatusData = {
+        status: statusTask.checked,
+      };
+      const statusData = JSON.stringify(inputStatusData);
+      xhr.open('POST', `${urlServer}?method=updateById&id=${boxId}`);
+      xhr.send(statusData);
     });
   });
 }, 1000);
@@ -127,49 +150,50 @@ setTimeout(() => {
   const rootCard = document.querySelector('.root');
   const shortCard = rootCard.querySelectorAll('.box');
   shortCard.forEach((item) => {
-    const editButton = item.querySelectorAll('.container4');
+    const editButton = item.querySelector('.container4');
     const shortName = item.querySelector('.container2');
     const longDescription = item.querySelector('.description');
-    editButton.forEach((element) => {
-      element.addEventListener('click', () => {
-        if (editForm.style.display === 'none') {
-          editForm.style.display = 'flex';
-          const editInputName = editForm.querySelector('.edit-name');
-          const editInputdescription = editForm.querySelector('.edit-description');
-          const boxId = item.querySelector('.content').textContent;
-          editInputName.value = shortName.textContent;
-          editInputdescription.value = longDescription.textContent;
+    const boxId = item.querySelector('.content').textContent;
+    editButton.addEventListener('click', () => {
+      if (editForm.style.display === 'none') {
+        editForm.style.display = 'flex';
+        const editInputName = editForm.querySelector('.edit-name');
+        const editInputdescription = editForm.querySelector('.edit-description');
+        editInputName.value = shortName.textContent.replace(/ +/g, ' ').trim();
+        editInputdescription.value = longDescription.textContent.replace(/ +/g, ' ').trim();
 
-          okEditTicket.addEventListener('click', () => {
-            // eslint-disable-next-line
-            event.preventDefault();
-            const xhr = new XMLHttpRequest();
-
-            const inputEditData = {
-              name: editInputName.value,
-              description: editInputdescription.value,
-            };
-            const editData = JSON.stringify(inputEditData);
-
-            xhr.open('POST', `${urlServer}?method=updateById&id=${boxId}`);
-            xhr.send(editData);
-            editInputName.value = '';
-            editInputdescription.value = '';
-            editForm.style.display = 'none';
-          });
-        } else {
-          editForm.style.display = 'none';
-        }
-        const cancelEditTicket = document.querySelector('.cancel-edit-button');
-        cancelEditTicket.addEventListener('click', () => {
+        okEditTicket.addEventListener('click', () => {
           // eslint-disable-next-line
           event.preventDefault();
-          const editInputName = editForm.querySelector('.edit-name');
-          const editInputdescription = editForm.querySelector('.edit-description');
+          const xhr = new XMLHttpRequest();
+
+          const inputEditData = {
+            name: editInputName.value,
+            description: editInputdescription.value,
+          };
+          const editData = JSON.stringify(inputEditData);
+
+          xhr.open('POST', `${urlServer}?method=updateById&id=${boxId}`);
+          xhr.send(editData);
           editInputName.value = '';
           editInputdescription.value = '';
           editForm.style.display = 'none';
+          app.init();
+          // eslint-disable-next-line
+          location.reload();
         });
+      } else {
+        editForm.style.display = 'none';
+      }
+      const cancelEditTicket = document.querySelector('.cancel-edit-button');
+      cancelEditTicket.addEventListener('click', () => {
+        // eslint-disable-next-line
+        event.preventDefault();
+        const editInputName = editForm.querySelector('.edit-name');
+        const editInputdescription = editForm.querySelector('.edit-description');
+        editInputName.value = '';
+        editInputdescription.value = '';
+        editForm.style.display = 'none';
       });
     });
   });
